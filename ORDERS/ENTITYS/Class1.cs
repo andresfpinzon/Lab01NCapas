@@ -1,4 +1,4 @@
-﻿namespace DAL
+﻿namespace ENTITYS
 {
     public class Class1
     {
