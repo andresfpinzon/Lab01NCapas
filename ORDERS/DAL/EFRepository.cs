@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DAL
 {
@@ -62,14 +63,25 @@ namespace DAL
             }
         }
 
-        public Task<List<TEntity>> FilterAsync<TEntity>(Expression<Func<TEntity, bool>> Criteria) where TEntity : class
+        public Task<List<TEntity>> FilterAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class
         {
             throw new NotImplementedException();
         }
 
-        public Task<TEntity> RetrieveAsync<TEntity>(Expression<Func<TEntity, bool>> Criteria) where TEntity : class
+        public async Task<TEntity> RetrieveAsync<TEntity>(Expression<Func<TEntity, bool>> criteria) where TEntity : class
         {
-            throw new NotImplementedException();
+            TEntity Result = null;
+            try
+            {
+                
+                Result = await _context.Set<TEntity>().FirstOrDefaultAsync(criteria);
+            }
+            catch (DbException)
+            {
+
+                throw;
+            }
+            return Result;
         }
 
         public async Task<bool> UpdateAsync<TEntity>(TEntity toUpdate) where TEntity : class
