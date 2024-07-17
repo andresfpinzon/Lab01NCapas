@@ -68,7 +68,6 @@ namespace DAL
             List<TEntity> Result = default(List<TEntity>);
             try
             {
-
                 Result = await _context.Set<TEntity>().Where(criteria).ToListAsync();
             }
             catch (DbException)
@@ -84,7 +83,6 @@ namespace DAL
             TEntity Result = null;
             try
             {
-                
                 Result = await _context.Set<TEntity>().FirstOrDefaultAsync(criteria);
             }
             catch (DbException)
