@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ENTITIES.Models;
 
-//[Table("Customer")]
+[Table("Customer")]
 //[Index("LastName", "FirstName", Name = "IndexCustomerName")]
 public partial class Customer
 {

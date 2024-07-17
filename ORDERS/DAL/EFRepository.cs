@@ -31,6 +31,7 @@ namespace DAL
             {
                 await _context.Set<TEntity>().AddAsync(toCreate);
                 await _context.SaveChangesAsync();
+                Result = toCreate;
             }
             catch (DbException) 
             { 
