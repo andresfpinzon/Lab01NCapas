@@ -56,7 +56,10 @@ namespace DAL
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            if (_context != null)
+            {
+                _context.Dispose();
+            }
         }
 
         public Task<List<TEntity>> FilterAsync<TEntity>(Expression<Func<TEntity, bool>> Criteria) where TEntity : class
