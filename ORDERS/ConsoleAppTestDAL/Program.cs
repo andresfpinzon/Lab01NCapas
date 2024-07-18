@@ -2,11 +2,13 @@
 using DAL;
 using ENTITIES.Models;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 
 //CreateAsync().GetAwaiter().GetResult();
 //RetrieveAsync().GetAwaiter().GetResult();
 //UpdateAsync().GetAwaiter().GetResult();
-FilterAsync().GetAwaiter().GetResult();
+//FilterAsync().GetAwaiter().GetResult();
+DeleteAsync().GetAwaiter().GetResult();
 static async Task CreateAsync()
 {
     //Add Customer
@@ -101,6 +103,20 @@ static async Task FilterAsync()
         foreach (var customer in customers) 
         {
             Console.WriteLine($"Customer: {customer.FirstName} {customer.LastName} \t from {customer.City}");
+        }
+    }
+}
+
+static async Task DeleteAsync()
+{
+    using (var repository = RepositoryFactory.CreateRepository())
+    {
+        Expression<Func<Customer, bool>> criteria = customer => customer.Id == 98;
+        var customerToDelete = await repository.RetrieveAsync(criteria);
+        if (customerToDelete != null)
+        {
+            bool deleted = await repository.DeleteAsync(customerToDelete);
+            Console.WriteLine(deleted ? "Customer deleted successfully" : "Failed to delete customer");
         }
     }
 }
