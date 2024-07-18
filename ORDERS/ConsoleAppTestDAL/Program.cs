@@ -5,7 +5,8 @@ using System.Linq.Expressions;
 
 //CreateAsync().GetAwaiter().GetResult();
 //RetrieveAsync().GetAwaiter().GetResult();
-UpdateAsync().GetAwaiter().GetResult();
+//UpdateAsync().GetAwaiter().GetResult();
+FilterAsync().GetAwaiter().GetResult();
 static async Task CreateAsync()
 {
     //Add Customer
@@ -87,5 +88,19 @@ static async Task UpdateAsync()
             Console.WriteLine($"Error: {ex.Message}");
         }
     }
+}
 
+static async Task FilterAsync()
+{
+    using (var Repository = RepositoryFactory.CreateRepository())
+    {
+        Expression<Func<Customer, bool>> criteria = c => c.Country == "USA";
+
+        var customers = await Repository.FilterAsync(criteria);
+
+        foreach (var customer in customers) 
+        {
+            Console.WriteLine($"Customer: {customer.FirstName} {customer.LastName} \t from {customer.City}");
+        }
+    }
 }
