@@ -1,6 +1,9 @@
-﻿namespace BLL
+﻿using DAL;
+using ENTITIES;
+
+namespace BLL
 {
-    public class Class1
+    public class Customers
     {
 
     }
