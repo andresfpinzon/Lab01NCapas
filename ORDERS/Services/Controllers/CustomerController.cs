@@ -64,6 +64,26 @@ namespace Services.Controllers
             }
         }
 
+        // POST: api/<CustomerController>
+        [HttpPost]
+        public async Task<ActionResult<Customer>> CreateAsync([FromBody] Customer toCreate)
+        {
+            try
+            {
+                var customer = await _bll.CreateAsync(toCreate);
+                return CreatedAtRoute("RetrieveAsync", new { id = customer.Id }, customer); // Use CreatedAtRoute for 201 Created
+            }
+            catch (CustomerExceptions ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
+        }
+
 
     }
 }
