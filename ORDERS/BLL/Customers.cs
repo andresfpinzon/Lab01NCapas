@@ -75,6 +75,26 @@ namespace BLL
             return Result;
         }
 
-
+        public async Task<bool> DeleteAsync(int id)
+        {
+            bool Result = false;
+            // Buscar un cliente para ver si tiene Orders (Ordenes de Compra)
+            var customer = await RetrieveByIDAsync(id);
+            if (customer != null)
+            {
+                // Eliminar el cliente
+                using (var repository = RepositoryFactory.CreateRepository())
+                {
+                    Result = await repository.DeleteAsync(customer);
+                }
+            }
+            else
+            {
+                // Podemos implementar alguna lógica
+                // para indicar que el producto no existe
+                CustomerExceptions.ThrowInvalidCustomerIdException(id);
+            }
+            return Result;
+        }
     }
 }
