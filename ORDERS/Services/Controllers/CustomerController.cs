@@ -39,6 +39,31 @@ namespace Services.Controllers
             }
         }
 
+        // GET api/<CustomerController>/5
+        [HttpGet("{id}", Name = "RetrieveAsync")]
+        public async Task<ActionResult<Customer>> RetrieveAsync(int id)
+        {
+            try
+            {
+                var customer = await _bll.RetrieveByIDAsync(id);
+
+                if (customer == null)
+                {
+                    return NotFound("Customer not found."); // Use NotFound result for missing resources
+                }
+                return Ok(customer);
+            }
+            catch (CustomerExceptions ce)
+            {
+                return BadRequest(ce.Message);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            }
+        }
+
 
     }
 }
