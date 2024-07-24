@@ -23,5 +23,10 @@ namespace BLL.Exceptions
         { 
             throw new CustomerExceptions(message);
         }
+
+        public static void ThrowInvalidCustomerIdException(int id) 
+        {
+            throw new CustomerExceptions($"A client with the Id {id} not exists .");
+        }
     }
 }

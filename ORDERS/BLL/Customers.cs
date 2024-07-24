@@ -31,5 +31,24 @@ namespace BLL
             return customerResult!;
         }
 
+        public async Task<Customer> RetrieveByIDAsync(int id)
+        {
+            Customer result = null;
+
+            using (var repository = RepositoryFactory.CreateRepository())
+            {
+                Customer customer = await repository.RetrieveAsync<Customer>(c => c.Id == id);
+
+                // Check if customer was found
+                if (customer == null)
+                {
+                    // Throw a CustomerNotFoundException (assuming you have this class)
+                    CustomerExceptions.ThrowInvalidCustomerIdException(id);
+                }
+
+                return customer!;
+            }
+        }
+
     }
 }
