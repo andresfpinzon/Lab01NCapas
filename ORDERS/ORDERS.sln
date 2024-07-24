@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ENTITIES", "ENTITIES\ENTITI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppTestDAL", "ConsoleAppTestDAL\ConsoleAppTestDAL.csproj", "{DDB16C8F-9700-4D3F-92B7-6FF5F9B868E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{5EE615CB-1036-4D39-9735-D19E87602A93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{5EE615CB-1036-4D39-9735-D19E87602A93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLC", "SLC\SLC.csproj", "{F7F205C6-1C45-4BC3-AC62-D21623F7DCEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5EE615CB-1036-4D39-9735-D19E87602A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EE615CB-1036-4D39-9735-D19E87602A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EE615CB-1036-4D39-9735-D19E87602A93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7F205C6-1C45-4BC3-AC62-D21623F7DCEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F205C6-1C45-4BC3-AC62-D21623F7DCEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F205C6-1C45-4BC3-AC62-D21623F7DCEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F205C6-1C45-4BC3-AC62-D21623F7DCEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
