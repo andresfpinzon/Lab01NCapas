@@ -7,8 +7,8 @@ using System.Reflection.Metadata.Ecma335;
 //CreateAsync().GetAwaiter().GetResult();
 //RetrieveAsync().GetAwaiter().GetResult();
 //UpdateAsync().GetAwaiter().GetResult();
-//FilterAsync().GetAwaiter().GetResult();
-DeleteAsync().GetAwaiter().GetResult();
+FilterAsync().GetAwaiter().GetResult();
+//DeleteAsync().GetAwaiter().GetResult();
 static async Task CreateAsync()
 {
     //Add Customer
