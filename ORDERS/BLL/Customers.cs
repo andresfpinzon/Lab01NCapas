@@ -25,7 +25,7 @@ namespace BLL
                     // Podriamos incluso crear una capa de Excepciones
                     // personalizadas y consumirla desde otras  
                     // capas.
-                    CustomerExceptions.ThrowCustomerAlreadyExistException(customerSearch.FirstName, customerSearch.LastName);
+                    CustomerExceptions.ThrowCustomerAlreadyExistsException(customerSearch.FirstName, customerSearch.LastName);
                 }
             }
             return customerResult!;
@@ -49,6 +49,32 @@ namespace BLL
                 return customer!;
             }
         }
+
+        public async Task<bool> UpdateAsync(Customer customer)
+        {
+            bool Result = false;
+            using (var repository = RepositoryFactory.CreateRepository())
+            {
+                // Validar que el nombre del cliente no exista
+                Customer customerSearch = await repository.RetrieveAsync<Customer>(
+                    c => c.FirstName == customer.FirstName && c.Id != customer.Id);
+
+                if (customerSearch == null)
+                {
+                    // No existe
+                    Result = await repository.UpdateAsync(customer);
+                }
+                else
+                {
+                    // Podemos implementar alguna lógica para
+                    // indicar que no se pudo modificar
+                    CustomerExceptions.ThrowCustomerAlreadyExistsException(
+                        customerSearch.FirstName, customerSearch.LastName);
+                }
+            }
+            return Result;
+        }
+
 
     }
 }

@@ -14,7 +14,7 @@ namespace BLL.Exceptions
             // Optional: Add constructor logic for logging or custom error handling
         }
 
-        public static void ThrowCustomerAlreadyExistException(string firstName, string lastName)
+        public static void ThrowCustomerAlreadyExistsException(string firstName, string lastName)
         {
             throw new CustomerExceptions($"A client with the name aready exists {firstName} {lastName}.");
         }
