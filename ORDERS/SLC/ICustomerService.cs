@@ -15,7 +15,7 @@ namespace SLC
         Task<IActionResult> DeleteAsync(int id);
         Task<ActionResult<List<Customer>>> GetAll();
         Task<ActionResult<Customer>> RetrieveAsync(int id);
-        Task<ActionResult> UpdateAsync(int id, [FromBody] Customer toUpdate);
+        Task<IActionResult> UpdateAsync(int id, [FromBody] Customer toUpdate);
     }
 }
 
