@@ -10,7 +10,7 @@ using ProxyServer.Interfaces;
 
 namespace ProxyServer
 {
-    internal class CustomerProxy : ICustomerProxy
+    public class CustomerProxy : ICustomerProxy
     {
         private readonly HttpClient _httpClient;
 
