@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProxyServer
+namespace ProxyServer.Interfaces
 {
-    public interface ICustmerProxy
+    public interface ICustomerProxy
     {
         Task<Customer> CreateAsync(Customer customer);
         Task<bool> DeleteAsync(int id);
