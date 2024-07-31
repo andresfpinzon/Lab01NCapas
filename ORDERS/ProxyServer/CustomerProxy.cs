@@ -68,7 +68,7 @@ namespace ProxyServer
             try
             {
                 var json = JsonSerializer.Serialize(customer);
-                var content = new StringContent(json, Encoding.UTF8, "pplication/json");
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync("", content);
                 response.EnsureSuccessStatusCode();
                 var responseJson = await response.Content.ReadAsStringAsync();
@@ -89,7 +89,7 @@ namespace ProxyServer
             try
             {
                 var json = JsonSerializer.Serialize(customer);
-                var content = new StringContent(json, Encoding.UTF8, "pplication/json");
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PutAsync($"{id}", content);
                 return response.IsSuccessStatusCode;
                 
