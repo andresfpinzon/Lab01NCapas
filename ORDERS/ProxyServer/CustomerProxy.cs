@@ -92,8 +92,6 @@ namespace ProxyServer
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PutAsync($"{id}", content);
                 return response.IsSuccessStatusCode;
-                
-
             }
             catch (global::System.Exception ex)
             {
@@ -105,7 +103,7 @@ namespace ProxyServer
         {
             try
             {
-                var response = await  _httpClient.DeleteAsync($"{id}");
+                var response = await _httpClient.DeleteAsync($"{id}");
                 return response.IsSuccessStatusCode;
             }
             catch (global::System.Exception ex)
