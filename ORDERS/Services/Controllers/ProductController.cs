@@ -66,45 +66,13 @@ namespace Services.Controllers
         }
 
         // POST: api/<ProductController>
-        //[HttpPost]
-        //public async Task<ActionResult<Product>> CreateAsync([FromBody] Product toCreate)
-        //{
-        //    try
-        //    {
-        //        var product = await _bll.CreateAsync(toCreate);
-        //        return CreatedAtRoute("RetrieveProductAsync", new { id = product.Id }, product); // Use CreatedAtRoute for 201 Created
-        //    }
-        //    catch (ProductExceptions ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log the exception
-        //        return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
-        //    }
-        //}
-
         [HttpPost]
         public async Task<ActionResult<Product>> CreateAsync([FromBody] Product toCreate)
         {
             try
             {
-                using (var repository = RepositoryFactory.CreateRepository())
-                {
-                    // Buscar el Supplier existente por el supplierId
-                    var existingSupplier = await repository.RetrieveAsync<Supplier>(s => s.Id == toCreate.SupplierId);
-                    if (existingSupplier == null)
-                    {
-                        return BadRequest("Supplier not found.");
-                    }
-                    // Asignar el Supplier encontrado al Product
-                    toCreate.Supplier = existingSupplier;
-                }
-
-                // Crear el Product utilizando la lógica de negocio
                 var product = await _bll.CreateAsync(toCreate);
-                return CreatedAtRoute("RetrieveProductAsync", new { id = product.Id }, product);
+                return CreatedAtRoute("RetrieveProductAsync", new { id = product.Id }, product); // Use CreatedAtRoute for 201 Created
             }
             catch (ProductExceptions ex)
             {
@@ -116,6 +84,38 @@ namespace Services.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
             }
         }
+
+        //[HttpPost]
+        //public async Task<ActionResult<Product>> CreateAsync([FromBody] Product toCreate)
+        //{
+        //    try
+        //    {
+        //        using (var repository = RepositoryFactory.CreateRepository())
+        //        {
+        //            // Buscar el Supplier existente por el supplierId
+        //            var existingSupplier = await repository.RetrieveAsync<Supplier>(s => s.Id == toCreate.SupplierId);
+        //            if (existingSupplier == null)
+        //            {
+        //                return BadRequest("Supplier not found.");
+        //            }
+        //            // Asignar el Supplier encontrado al Product
+        //            toCreate.Supplier = existingSupplier;
+        //        }
+
+        //        // Crear el Product utilizando la lógica de negocio
+        //        var product = await _bll.CreateAsync(toCreate);
+        //        return CreatedAtRoute("RetrieveProductAsync", new { id = product.Id }, product);
+        //    }
+        //    catch (ProductExceptions ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+        //    }
+        //}
 
 
 
