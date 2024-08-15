@@ -18,7 +18,7 @@ namespace BLL
             using (var repository = RepositoryFactory.CreateRepository())
             {
                 // Buscar si el nombre de cliente existe
-                Supplier supplierSearch = await repository.RetrieveAsync<Supplier>(c => c.CompanyName == supplier.CompanyName);
+                Supplier supplierSearch = await repository.RetrieveAsync<Supplier>(s => s.CompanyName == supplier.CompanyName);
                 if (supplierSearch == null)
                 {
                     // No existe, podemos crearlo
@@ -43,7 +43,7 @@ namespace BLL
 
             using (var repository = RepositoryFactory.CreateRepository())
             {
-                Supplier supplier = await repository.RetrieveAsync<Supplier>(c => c.Id == id);
+                Supplier supplier = await repository.RetrieveAsync<Supplier>(s => s.Id == id);
 
                 // Check if customer was found
                 if (supplier == null)
@@ -63,7 +63,7 @@ namespace BLL
             {
                 // Validar que el nombre del cliente no exista
                 Supplier supplierSearch = await repository.RetrieveAsync<Supplier>(
-                    c => c.CompanyName == supplier.CompanyName && c.Id != supplier.Id);
+                    s => s.CompanyName == supplier.CompanyName && s.Id != supplier.Id);
 
                 if (supplierSearch == null)
                 {
