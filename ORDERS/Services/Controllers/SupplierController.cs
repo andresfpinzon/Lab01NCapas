@@ -1,34 +1,33 @@
-﻿using BLL;
+﻿using BLL.Exceptions;
+using BLL;
 using ENTITIES.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SLC;
-using System.Linq.Expressions;
-using Microsoft.AspNetCore.Http;
-using BLL.Exceptions;
 
 namespace Services.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase , ICustomerService
+    public class SupplierController : ControllerBase , ISupplierService
     {
-        private readonly Customers _bll; // Dependency injection for better testability
+        private readonly Suppliers _bll; // Dependency injection for better testability
 
-        public CustomerController(Customers bll)
+        public SupplierController(Suppliers bll)
         {
             _bll = bll;
         }
 
-        // GET: api/<CustomerController>
+        // GET: api/<SupplierController>
         [HttpGet]
-        public async Task<ActionResult<List<Customer>>> GetAll()
+        public async Task<ActionResult<List<Supplier>>> GetAll()
         {
             try
             {
                 var result = await _bll.RetrieveAllAsync();
                 return Ok(result); // Use IActionResult for more flexibility (200 OK)
             }
-            catch (CustomerExceptions ex) // Catch specific business logic exceptions
+            catch (SupplierExceptions ex) // Catch specific business logic exceptions
             {
                 return BadRequest(ex.Message); // Return 400 Bad Request with error message
             }
@@ -39,21 +38,21 @@ namespace Services.Controllers
             }
         }
 
-        // GET api/<CustomerController>/5
-        [HttpGet("{id}", Name = "RetrieveCustomerAsync")]
-        public async Task<ActionResult<Customer>> RetrieveAsync(int id)
+        // GET api/<SupplierController>/5
+        [HttpGet("{id}", Name = "RetrieveSupplierAsync")]
+        public async Task<ActionResult<Supplier>> RetrieveAsync(int id)
         {
             try
             {
-                var customer = await _bll.RetrieveByIDAsync(id);
+                var supplier = await _bll.RetrieveByIDAsync(id);
 
-                if (customer == null)
+                if (supplier == null)
                 {
-                    return NotFound("Customer not found."); // Use NotFound result for missing resources
+                    return NotFound("Supplier not found."); // Use NotFound result for missing resources
                 }
-                return Ok(customer);
+                return Ok(supplier);
             }
-            catch (CustomerExceptions ce)
+            catch (SupplierExceptions ce)
             {
                 return BadRequest(ce.Message);
             }
@@ -64,16 +63,16 @@ namespace Services.Controllers
             }
         }
 
-        // POST: api/<CustomerController>
+        // POST: api/<SupplierController>
         [HttpPost]
-        public async Task<ActionResult<Customer>> CreateAsync([FromBody] Customer toCreate)
+        public async Task<ActionResult<Supplier>> CreateAsync([FromBody] Supplier toCreate)
         {
             try
             {
-                var customer = await _bll.CreateAsync(toCreate);
-                return CreatedAtRoute("RetrieveCustomerAsync", new { id = customer.Id }, customer); // Use CreatedAtRoute for 201 Created
+                var supplier = await _bll.CreateAsync(toCreate);
+                return CreatedAtRoute("RetrieveSupplierAsync", new { id = supplier.Id }, supplier); // Use CreatedAtRoute for 201 Created
             }
-            catch (CustomerExceptions ex)
+            catch (SupplierExceptions ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -84,9 +83,9 @@ namespace Services.Controllers
             }
         }
 
-        // PUT: api/<CustomerController>/5
+        // PUT: api/<SupplierController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] Customer toUpdate)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] Supplier toUpdate)
         {
             toUpdate.Id = id;
             try
@@ -94,11 +93,11 @@ namespace Services.Controllers
                 var result = await _bll.UpdateAsync(toUpdate);
                 if (!result)
                 {
-                    return NotFound("Customer not found or update failed."); // Informative message for unsuccessful update
+                    return NotFound("Supplier not found or update failed."); // Informative message for unsuccessful update
                 }
                 return NoContent(); // Use NoContent for successful updates with no content to return
             }
-            catch (CustomerExceptions ex)
+            catch (SupplierExceptions ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -109,7 +108,7 @@ namespace Services.Controllers
             }
         }
 
-        // DELETE: api/<CustomerController>/5
+        // DELETE: api/<SupplierController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
@@ -118,11 +117,11 @@ namespace Services.Controllers
                 var result = await _bll.DeleteAsync(id);
                 if (!result)
                 {
-                    return NotFound("Customer not found or deletion failed."); // Informative message for unsuccessful deletion
+                    return NotFound("Product not found or deletion failed."); // Informative message for unsuccessful deletion
                 }
                 return NoContent(); // Use NoContent for successful deletions with no content to return
             }
-            catch (CustomerExceptions ex)
+            catch (SupplierExceptions ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -132,7 +131,5 @@ namespace Services.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
             }
         }
-
-
     }
 }
